@@ -1,0 +1,11 @@
+pniedzielski.net {
+  gzip
+  log ../pniedzielski.net.log
+  ext .html
+
+  header / {
+    Cache-Control "public, max-age=12000"
+  }
+}
+
+#tls { dns cloudflare }

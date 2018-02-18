@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>pniedzielski</title>
+  <subtitle>Website of Patrick M. Niedzielski</subtitle>
+  <link href="https://pniedzielski.net/feed.xml" rel="self" />
+  <link href="https://pniedzielski.net/" />
+  <id>https://pniedzielski.net/feed.xml</id>
+  <updated>2018-02-09T03:04:00Z</updated>
+  
+  <author>
+    <name>Patrick M. Niedzielski</name>
+    <email>patrick@pniedzielski.net</email>
+  </author>
+
+  <entry>
+    <title>Configurational syntax in the Sumerian clause: Evidence from cross-referencing at AOS</title>
+    <link href="https://pniedzielski.net/2018/03/aos-talk" />
+    <id>https://pniedzielski.net/2018/03/aos-talk</id>
+    <updated>2018-02-09T03:04:00Z</updated>
+    <summary>Event on 16 Mar 2018 at 228th Annual Meeting of the American Oriental Society</summary>
+  </entry>
+
+  <entry>
+    <title>Ergativity, Agreement, and the Sumerian Verbal Complex at ILURS</title>
+    <link href="https://pniedzielski.net/2017/11/ilurs-poster" />
+    <id>https://pniedzielski.net/2017/11/ilurs-poster</id>
+    <updated>2018-02-09T03:04:00Z</updated>
+    <summary>Event on 10 Nov 2017 at Ivy League Undergraduate Research Symposium</summary>
+  </entry>
+
+  <entry>
+    <title>Clausal Syntax in the Sumerian Language honors thesis</title>
+    <link href="https://pniedzielski.net/2017/05/thesis" />
+    <id>https://pniedzielski.net/2017/05/thesis</id>
+    <updated>2018-02-09T03:04:00Z</updated>
+    <summary>Honors Thesis presented to the Department of Linguistics, Cornell University, May 2017</summary>
+  </entry>
+
+  <entry>
+    <title>Ergativity, Agreement, and the Sumerian Verbal Complex at CURB Humanities Showcase</title>
+    <link href="https://pniedzielski.net/2017/05/humanities-poster" />
+    <id>https://pniedzielski.net/2017/05/humanities-poster</id>
+    <updated>2018-02-09T03:04:00Z</updated>
+    <summary>Event on 03 May 2017 at Cornell Humanities Showcase</summary>
+  </entry>
+
+  <entry>
+    <title>Ergativity, Agreement, and the Sumerian Verbal Complex at CULC11</title>
+    <link href="https://pniedzielski.net/2017/04/culc-talk" />
+    <id>https://pniedzielski.net/2017/04/culc-talk</id>
+    <updated>2018-02-09T03:04:00Z</updated>
+    <summary>Event on 29 Apr 2017 at Cornell Undergraduate Linguistics Colloquium 11</summary>
+  </entry>
+
+  <entry>
+    <title>Ergativity, Agreement, and the Sumerian Verbal Complex at CURB Spring Research Forum</title>
+    <link href="https://pniedzielski.net/2017/04/curb-poster" />
+    <id>https://pniedzielski.net/2017/04/curb-poster</id>
+    <updated>2018-02-09T03:04:00Z</updated>
+    <summary>Event on 27 Apr 2017 at CURB Spring Forum</summary>
+  </entry>
+
+  <entry>
+    <title>C++ in Colleges at CppCon 2016</title>
+    <link href="https://pniedzielski.net/2016/09/cppcon-panel" />
+    <id>https://pniedzielski.net/2016/09/cppcon-panel</id>
+    <updated>2018-02-09T03:04:00Z</updated>
+    <summary>Event on 20 Sep 2016 at CppCon 2016</summary>
+  </entry>
+
+  <entry>
+    <title>From Zero to Iterators: Building and Extending the Iterator Hierarchy in a Modern, Multicore World at CppCon 2016</title>
+    <link href="https://pniedzielski.net/2016/09/cppcon-talk" />
+    <id>https://pniedzielski.net/2016/09/cppcon-talk</id>
+    <updated>2018-02-09T03:04:00Z</updated>
+    <summary>Event on 19 Sep 2016 at CppCon 2016</summary>
+  </entry>
+
+</feed>

@@ -1,0 +1,8 @@
+* { box-sizing: border-box; }
+
+.h-card img.u-photo { float: right; }
+
+header[role="banner"] nav ul { display: flex; }
+header[role="banner"] nav li { display: block;  margin: 0 0.5em; }
+
+body { max-width: 50em;  margin: 0 auto;  background-color: #eee; }
