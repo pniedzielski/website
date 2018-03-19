@@ -1,0 +1,60 @@
+<!DOCTYPE html>                              <!-- -*- truncate-lines: t -*- -->
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>$title$</title>
+  <meta name="description" content="$description$">
+  <meta name="author"      content="Patrick M. Niedzielski">
+  <meta name="viewport"    content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="canonical"  href="https://pniedzielski.net$url$">
+  <link rel="icon"       href="https://pniedzielski.net/images/favicon.png">
+  <link rel="stylesheet" href="https://pniedzielski.net/css/styles.css">
+</head>
+
+<body>
+
+  <header role="banner">
+    <a id="site-title" href="https://pniedzielski.net/">pniedzielski</a>
+
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#updates">Updates</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+$body$
+  </main>
+
+  <footer>
+    Copyright © 2018, <a class="h-card" href="https://pniedzielski.net/">Patrick M. Niedzielski</a>.
+
+    <a rel="license" href="https://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://licensebuttons.net/l/by/4.0/80x15.png" /></a><br>
+    This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+  </footer>
+
+  <script>
+    <!--
+    // Register our service-worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/serviceworker.js', {
+            scope: '/'
+        });
+        window.addEventListener('load', function() {
+            if (navigator.serviceWorker.controller) {
+                navigator.serviceWorker.controller.postMessage({'command': 'trimCaches'});
+            }
+        });
+    }
+    //-->
+  </script>
+</body>
+
+</html>
