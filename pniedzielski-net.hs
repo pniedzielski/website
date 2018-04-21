@@ -22,13 +22,14 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE UnicodeSyntax     #-}
 
-import    Hakyll
-import    Prelude.Unicode
-import    Control.Monad.Unicode
-import    Data.Monoid.Unicode
-import    Data.List
-import    Data.Maybe
-import    System.FilePath
+import           Hakyll
+import           Prelude.Unicode
+import           Control.Monad.Unicode
+import           Data.Monoid.Unicode
+import           Data.List
+import           Data.Maybe
+import           System.FilePath
+import qualified Data.ByteString.Lazy as LBS
 
 main ∷ IO ()
 main = hakyll $ do
@@ -62,7 +63,7 @@ main = hakyll $ do
 
   match (    "2016/**/*.html"
         .||. "2017/**/*.html"
-        .||. "2018/**/*.html") $ do
+        .||. "2018/**/*.html")
     postBehavior
 
 
@@ -111,6 +112,10 @@ indentBodyBy n = withItemBody $ return ∘ indent
   where indentLine "" = ""
         indentLine s  = (replicate n ' ') ⧺ s
         indent        = intercalate "\n" ∘ fmap indentLine ∘ lines
+
+-- Brotli compress a resource.
+brotli ∷ Item LBS.ByteString → Compiler (Item LBS.ByteString)
+brotli = withItemBody $ unixFilterLBS "brotli" ["-9", "-c"]
 
 
 -------------------------------------------------------------------------------

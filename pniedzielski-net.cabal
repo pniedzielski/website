@@ -9,5 +9,6 @@ executable pniedzielski-net
                   , hakyll == 4.11.*
                   , base-unicode-symbols
                   , filepath
+                  , bytestring
   ghc-options:      -threaded
   default-language: Haskell2010
