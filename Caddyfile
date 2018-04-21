@@ -6,6 +6,8 @@ pniedzielski.net {
   header / {
     Cache-Control "public, max-age=12000"
   }
-}
 
-#tls { dns cloudflare }
+  tls {
+    dns cloudflare
+  }
+}
