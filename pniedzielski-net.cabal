@@ -8,5 +8,6 @@ executable pniedzielski-net
   build-depends:    base == 4.*
                   , hakyll == 4.11.*
                   , base-unicode-symbols
+                  , filepath
   ghc-options:      -threaded
   default-language: Haskell2010

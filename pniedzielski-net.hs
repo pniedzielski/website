@@ -14,6 +14,7 @@
 -- APPENDICES:                                                               --
 --     A. Behaviors                                                          --
 --     B. Compliers                                                          --
+--     C. Contexts                                                           --
 --                                                                           --
 -------------------------------------------------------------------------------
 
@@ -26,6 +27,8 @@ import    Prelude.Unicode
 import    Control.Monad.Unicode
 import    Data.Monoid.Unicode
 import    Data.List
+import    Data.Maybe
+import    System.FilePath
 
 main ∷ IO ()
 main = hakyll $ do
@@ -57,8 +60,10 @@ main = hakyll $ do
 -------------------------------------------------------------------------------
 
 
-  match ("2016/**/*.html" .||. "2017/**/*.html" .||. "2018/**/*.html")
-    staticBehavior
+  match (    "2016/**/*.html"
+        .||. "2017/**/*.html"
+        .||. "2018/**/*.html") $ do
+    postBehavior
 
 
 -------------------------------------------------------------------------------
@@ -83,6 +88,17 @@ staticBehavior = do
   route   idRoute
   compile copyFileCompiler
 
+-- Generate a post.
+postBehavior ∷ Rules ()
+postBehavior = do
+  route idRoute
+  compile $ getResourceBody
+    ≫= indentBodyBy 4
+    ≫= loadAndApplyTemplate "templates/default.html"
+         ( titleWithSiteName
+         ⊕ dropUrlExtension "url"
+         ⊕ defaultContext)
+
 
 -------------------------------------------------------------------------------
 --                                                              B. COMPILERS --
@@ -95,3 +111,21 @@ indentBodyBy n = withItemBody $ return ∘ indent
   where indentLine "" = ""
         indentLine s  = (replicate n ' ') ⧺ s
         indent        = intercalate "\n" ∘ fmap indentLine ∘ lines
+
+
+-------------------------------------------------------------------------------
+--                                                               C. CONTEXTS --
+-------------------------------------------------------------------------------
+
+
+-- Drops the extension from a URI field.
+dropUrlExtension ∷ String → Context a
+dropUrlExtension key = mapContext dropExtension $ urlField key
+
+-- Returns a context with the post URI lacking the final .html.
+titleWithSiteName ∷ Context a
+titleWithSiteName = field "title" $ \item → do
+    metadata ← getMetadata (itemIdentifier item)
+    return $ fromMaybe "pniedzielski" $
+      do title ← lookupString "title" metadata
+         return $ title ⧺ " • pniedzielski"
