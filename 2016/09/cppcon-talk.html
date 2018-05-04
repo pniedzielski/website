@@ -59,6 +59,21 @@
     This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
   </footer>
 
+  <script>
+    <!--
+    // Register our service-worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/serviceworker.js', {
+            scope: '/'
+        });
+        window.addEventListener('load', function() {
+            if (navigator.serviceWorker.controller) {
+                navigator.serviceWorker.controller.postMessage({'command': 'trimCaches'});
+            }
+        });
+    }
+    //-->
+  </script>
 </body>
 
 </html>
