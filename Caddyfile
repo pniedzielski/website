@@ -1,7 +1,11 @@
 pniedzielski.net {
   gzip
-  log ../pniedzielski.net.log
   ext .html
+
+  log / syslog "{combined}" {
+    # Anonymize bottom two octets of IPv4, bottom 80 bits of IPv6
+    ipmask 255.255.0.0 ffff:ffff:ffff::
+  }
 
   header / {
     Cache-Control "public, max-age=12000"
