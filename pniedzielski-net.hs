@@ -54,6 +54,8 @@ main = hakyll $ do
       ≫= indentBodyBy 4
       ≫= loadAndApplyTemplate "templates/default.html"
            (constField "url" "/" ⊕ defaultContext)
+      ≫= saveSnapshot "brotli"
+    version "brotli" brotliBehavior
 
 
 -------------------------------------------------------------------------------
@@ -83,22 +85,36 @@ main = hakyll $ do
 -------------------------------------------------------------------------------
 
 
+-- Brotli compress a file
+brotliBehavior ∷ Rules ()
+brotliBehavior = do
+  route   $ addExtension' ".br"
+  compile $ getResourceLBS ≫= brotli
+  where
+    addExtension' extension = customRoute $
+      (`addExtension` extension) . toFilePath
+
+
 -- Copy a file without modifying it.
 staticBehavior ∷ Rules ()
 staticBehavior = do
-  route   idRoute
-  compile copyFileCompiler
+  route   $ idRoute
+  compile $ copyFileCompiler ≫= saveSnapshot "brotli"
+  version "brotli" brotliBehavior
+
 
 -- Generate a post.
 postBehavior ∷ Rules ()
 postBehavior = do
-  route idRoute
+  route   $ idRoute
   compile $ getResourceBody
     ≫= indentBodyBy 4
     ≫= loadAndApplyTemplate "templates/default.html"
          ( titleWithSiteName
          ⊕ dropUrlExtension "url"
          ⊕ defaultContext)
+    ≫= saveSnapshot "brotli"
+  version "brotli" brotliBehavior
 
 
 -------------------------------------------------------------------------------
