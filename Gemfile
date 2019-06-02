@@ -22,6 +22,10 @@ group :jekyll_plugins do
   gem "jekyll-brotli"
 end
 
+group :development do
+  gem 'rake'
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
