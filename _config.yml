@@ -5,6 +5,7 @@ description: >-
 baseurl: /
 url: https://pniedzielski.net
 github_username: pniedzielski
+permalink: /:categories/:year/:slug
 
 # Build settings
 markdown: kramdown
