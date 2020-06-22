@@ -5,3 +5,4 @@ _site/
 pniedzielski-net
 pniedzielski-net.hi
 pniedzielski-net.o
+/stack.yaml.lock
