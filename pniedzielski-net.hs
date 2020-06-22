@@ -2,7 +2,8 @@
 --                      PNIEDZIELSKI.NET SITE GENERATOR                      --
 --                      -------------------------------                      --
 --                                                                           --
--- Copyright © 2018, Patrick M. Niedzielski <patrick@pniedzielski.net>.      --
+-- Copyright © 2018, 2020, Patrick M. Niedzielski                            --
+--   <patrick@pniedzielski.net>.                                             --
 -- See LICENSE file for copying information.                                 --
 --                                                                           --
 -- TABLE OF CONTENTS:                                                        --
@@ -65,7 +66,8 @@ main = hakyll $ do
 
   match (    "2016/**/*.html"
         .||. "2017/**/*.html"
-        .||. "2018/**/*.html")
+        .||. "2018/**/*.html"
+        .||. "2019/**/*.html")
     postBehavior
 
 
