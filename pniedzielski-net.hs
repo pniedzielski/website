@@ -77,7 +77,7 @@ main = hakyll $ do
 
 
   match (fromList [ "css/styles.css"   , "images/favicon.ico"
-                  , "me.jpg"           , "serviceworker.js"
+                  , "images/me.jpg"    , "serviceworker.js"
                   , "pniedzielski.asc" , "feed.xml"           ])
     staticBehavior
 
