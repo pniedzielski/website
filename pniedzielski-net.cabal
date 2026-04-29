@@ -8,7 +8,6 @@ executable pniedzielski-net
   build-depends:    base == 4.*
                   , hakyll >= 4.16.8
                   , wai-app-static
-                  , base-unicode-symbols
                   , filepath
                   , bytestring
   ghc-options:      -threaded
