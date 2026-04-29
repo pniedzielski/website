@@ -28,7 +28,7 @@ import Data.Maybe
 import System.FilePath
 import Data.ByteString.Lazy qualified as LBS
 import Network.Wai.Application.Static qualified as W
-import WaiAppStatic.Types (LookupResult(..), fromPiece, unsafeToPiece)
+import WaiAppStatic.Types (LookupResult(..), fromPiece, toPiece)
 
 configuration :: Configuration
 configuration = defaultConfiguration
@@ -37,8 +37,9 @@ configuration = defaultConfiguration
           tryHtml = maybe (return LRNotFound) $ \pathPieces ->
             let prefix    = NE.init pathPieces
                 lastPiece = NE.last pathPieces
-                htmlPiece = unsafeToPiece (fromPiece lastPiece <> ".html")
-            in W.ssLookupFile base (prefix ++ [htmlPiece])
+            in case toPiece (fromPiece lastPiece <> ".html") of
+              Just htmlPiece -> W.ssLookupFile base (prefix ++ [htmlPiece])
+              Nothing        -> return LRNotFound
       in base { W.ssLookupFile = \pieces ->
            W.ssLookupFile base pieces >>= \case
              LRNotFound -> tryHtml (nonEmpty pieces)
