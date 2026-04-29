@@ -12,4 +12,17 @@ executable pniedzielski-net
                   , bytestring
   default-extensions: OverloadedStrings
   ghc-options:      -threaded
+                    -Wall
+                    -Wcompat
+                    -Wcpp-undef
+                    -Widentities
+                    -Wincomplete-record-updates
+                    -Wincomplete-uni-patterns
+                    -Wmissing-deriving-strategies
+                    -Wmissing-export-lists
+                    -Wmissing-home-modules
+                    -Wnoncanonical-monad-instances
+                    -Wpartial-fields
+                    -Wredundant-constraints
+                    -Wtabs
   default-language: GHC2024
