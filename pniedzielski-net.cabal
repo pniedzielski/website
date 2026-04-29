@@ -10,6 +10,7 @@ executable pniedzielski-net
                   , wai-app-static
                   , filepath
                   , bytestring
+                  , brotli
   default-extensions: OverloadedStrings
   ghc-options:      -threaded
                     -Wall

@@ -21,6 +21,7 @@
 
 
 import Hakyll
+import Codec.Compression.Brotli qualified as Brotli
 import Data.List (intercalate)
 import Data.List.NonEmpty (nonEmpty)
 import Data.List.NonEmpty qualified as NE
@@ -147,7 +148,9 @@ indentBodyBy n = withItemBody $ return . indent
 
 -- Brotli compress a resource.
 brotli :: Item LBS.ByteString -> Compiler (Item LBS.ByteString)
-brotli = withItemBody $ unixFilterLBS "brotli" ["-9", "-c"]
+brotli = withItemBody $ return . Brotli.compressWith params
+  where params = Brotli.defaultCompressParams
+            { Brotli.compressLevel = Brotli.CompressionLevel9 }
 
 
 -------------------------------------------------------------------------------
