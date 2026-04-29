@@ -21,7 +21,7 @@
 
 
 import           Hakyll
-import           Data.List
+import           Data.List (intercalate)
 import           Data.List.NonEmpty (nonEmpty)
 import qualified Data.List.NonEmpty as NE
 import           Data.Maybe
