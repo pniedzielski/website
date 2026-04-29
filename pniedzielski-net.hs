@@ -20,6 +20,7 @@
 -------------------------------------------------------------------------------
 
 
+{-# LANGUAGE LambdaCase        #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE UnicodeSyntax     #-}
 
@@ -28,12 +29,33 @@ import           Prelude.Unicode
 import           Control.Monad.Unicode
 import           Data.Monoid.Unicode
 import           Data.List
+import           Data.List.NonEmpty (nonEmpty)
+import qualified Data.List.NonEmpty as NE
 import           Data.Maybe
 import           System.FilePath
 import qualified Data.ByteString.Lazy as LBS
+import qualified Network.Wai.Application.Static as W
+import           WaiAppStatic.Types (LookupResult(..), fromPiece,
+                                     unsafeToPiece)
+
+configuration ∷ Configuration
+configuration = defaultConfiguration
+  { previewSettings = \root →
+      let base    = W.defaultFileServerSettings root
+          tryHtml = maybe (return LRNotFound) $ \pathPieces →
+            let prefix    = NE.init pathPieces
+                lastPiece = NE.last pathPieces
+                htmlPiece = unsafeToPiece (fromPiece lastPiece ⊕ ".html")
+            in W.ssLookupFile base (prefix ⧺ [htmlPiece])
+      in base { W.ssLookupFile = \pieces →
+           W.ssLookupFile base pieces ≫= \case
+             LRNotFound → tryHtml (nonEmpty pieces)
+             other      → return other
+         }
+  }
 
 main ∷ IO ()
-main = hakyll $ do
+main = hakyllWith configuration $ do
 
 
 -------------------------------------------------------------------------------
