@@ -22,12 +22,8 @@
 
 {-# LANGUAGE LambdaCase        #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE UnicodeSyntax     #-}
 
 import           Hakyll
-import           Prelude.Unicode
-import           Control.Monad.Unicode
-import           Data.Monoid.Unicode
 import           Data.List
 import           Data.List.NonEmpty (nonEmpty)
 import qualified Data.List.NonEmpty as NE
@@ -38,23 +34,23 @@ import qualified Network.Wai.Application.Static as W
 import           WaiAppStatic.Types (LookupResult(..), fromPiece,
                                      unsafeToPiece)
 
-configuration ∷ Configuration
+configuration :: Configuration
 configuration = defaultConfiguration
-  { previewSettings = \root →
+  { previewSettings = \root ->
       let base    = W.defaultFileServerSettings root
-          tryHtml = maybe (return LRNotFound) $ \pathPieces →
+          tryHtml = maybe (return LRNotFound) $ \pathPieces ->
             let prefix    = NE.init pathPieces
                 lastPiece = NE.last pathPieces
-                htmlPiece = unsafeToPiece (fromPiece lastPiece ⊕ ".html")
-            in W.ssLookupFile base (prefix ⧺ [htmlPiece])
-      in base { W.ssLookupFile = \pieces →
-           W.ssLookupFile base pieces ≫= \case
-             LRNotFound → tryHtml (nonEmpty pieces)
-             other      → return other
+                htmlPiece = unsafeToPiece (fromPiece lastPiece <> ".html")
+            in W.ssLookupFile base (prefix ++ [htmlPiece])
+      in base { W.ssLookupFile = \pieces ->
+           W.ssLookupFile base pieces >>= \case
+             LRNotFound -> tryHtml (nonEmpty pieces)
+             other      -> return other
          }
   }
 
-main ∷ IO ()
+main :: IO ()
 main = hakyllWith configuration $ do
 
 
@@ -74,10 +70,10 @@ main = hakyllWith configuration $ do
   match "index.html" $ do
     route idRoute
     compile $ getResourceBody
-      ≫= indentBodyBy 4
-      ≫= loadAndApplyTemplate "templates/default.html"
-           (constField "url" "/" ⊕ defaultContext)
-      ≫= saveSnapshot "brotli"
+      >>= indentBodyBy 4
+      >>= loadAndApplyTemplate "templates/default.html"
+           (constField "url" "/" <> defaultContext)
+      >>= saveSnapshot "brotli"
     version "brotli" brotliBehavior
 
 
@@ -110,34 +106,34 @@ main = hakyllWith configuration $ do
 
 
 -- Brotli compress a file
-brotliBehavior ∷ Rules ()
+brotliBehavior :: Rules ()
 brotliBehavior = do
   route   $ addExtension' ".br"
-  compile $ getResourceLBS ≫= brotli
+  compile $ getResourceLBS >>= brotli
   where
     addExtension' extension = customRoute $
       (`addExtension` extension) . toFilePath
 
 
 -- Copy a file without modifying it.
-staticBehavior ∷ Rules ()
+staticBehavior :: Rules ()
 staticBehavior = do
   route   $ idRoute
-  compile $ copyFileCompiler ≫= saveSnapshot "brotli"
+  compile $ copyFileCompiler >>= saveSnapshot "brotli"
   version "brotli" brotliBehavior
 
 
 -- Generate a post.
-postBehavior ∷ Rules ()
+postBehavior :: Rules ()
 postBehavior = do
   route   $ idRoute
   compile $ getResourceBody
-    ≫= indentBodyBy 4
-    ≫= loadAndApplyTemplate "templates/default.html"
+    >>= indentBodyBy 4
+    >>= loadAndApplyTemplate "templates/default.html"
          ( titleWithSiteName
-         ⊕ dropUrlExtension "url"
-         ⊕ defaultContext)
-    ≫= saveSnapshot "brotli"
+         <> dropUrlExtension "url"
+         <> defaultContext)
+    >>= saveSnapshot "brotli"
   version "brotli" brotliBehavior
 
 
@@ -147,14 +143,14 @@ postBehavior = do
 
 
 -- Indent the body of a resource by 𝑛 spaces.
-indentBodyBy ∷ Int → Item String → Compiler (Item String)
-indentBodyBy n = withItemBody $ return ∘ indent
+indentBodyBy :: Int -> Item String -> Compiler (Item String)
+indentBodyBy n = withItemBody $ return . indent
   where indentLine "" = ""
-        indentLine s  = (replicate n ' ') ⧺ s
-        indent        = intercalate "\n" ∘ fmap indentLine ∘ lines
+        indentLine s  = (replicate n ' ') ++ s
+        indent        = intercalate "\n" . fmap indentLine . lines
 
 -- Brotli compress a resource.
-brotli ∷ Item LBS.ByteString → Compiler (Item LBS.ByteString)
+brotli :: Item LBS.ByteString -> Compiler (Item LBS.ByteString)
 brotli = withItemBody $ unixFilterLBS "brotli" ["-9", "-c"]
 
 
@@ -164,13 +160,13 @@ brotli = withItemBody $ unixFilterLBS "brotli" ["-9", "-c"]
 
 
 -- Drops the extension from a URI field.
-dropUrlExtension ∷ String → Context a
+dropUrlExtension :: String -> Context a
 dropUrlExtension key = mapContext dropExtension $ urlField key
 
 -- Returns a context with the post URI lacking the final .html.
-titleWithSiteName ∷ Context a
-titleWithSiteName = field "title" $ \item → do
-    metadata ← getMetadata (itemIdentifier item)
+titleWithSiteName :: Context a
+titleWithSiteName = field "title" $ \item -> do
+    metadata <- getMetadata (itemIdentifier item)
     return $ fromMaybe "pniedzielski" $
-      do title ← lookupString "title" metadata
-         return $ title ⧺ " • pniedzielski"
+      do title <- lookupString "title" metadata
+         return $ title ++ " • pniedzielski"
