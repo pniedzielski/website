@@ -78,10 +78,7 @@ main = hakyllWith configuration $ do
 -------------------------------------------------------------------------------
 
 
-  match (    "2016/**/*.html"
-        .||. "2017/**/*.html"
-        .||. "2018/**/*.html"
-        .||. "2019/**/*.html")
+  match "20*/**/*.html"
     postBehavior
 
 
@@ -90,9 +87,11 @@ main = hakyllWith configuration $ do
 -------------------------------------------------------------------------------
 
 
-  match (fromList [ "css/styles.css"   , "images/favicon.ico"
-                  , "images/me.jpg"    , "serviceworker.js"
-                  , "pniedzielski.asc" , "feed.xml"           ])
+  match (    "css/*"
+        .||. "images/*"
+        .||. "serviceworker.js"
+        .||. "pniedzielski.asc"
+        .||. "feed.xml")
     staticBehavior
 
 
