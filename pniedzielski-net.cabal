@@ -10,5 +10,6 @@ executable pniedzielski-net
                   , wai-app-static
                   , filepath
                   , bytestring
+  default-extensions: OverloadedStrings
   ghc-options:      -threaded
   default-language: GHC2024

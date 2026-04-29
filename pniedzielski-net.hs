@@ -20,8 +20,6 @@
 -------------------------------------------------------------------------------
 
 
-{-# LANGUAGE OverloadedStrings #-}
-
 import           Hakyll
 import           Data.List
 import           Data.List.NonEmpty (nonEmpty)
