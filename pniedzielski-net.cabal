@@ -6,7 +6,7 @@ cabal-version:      >= 1.10
 executable pniedzielski-net
   main-is:          pniedzielski-net.hs
   build-depends:    base == 4.*
-                  , hakyll == 4.11.*
+                  , hakyll >= 4.16.8
                   , base-unicode-symbols
                   , filepath
                   , bytestring
