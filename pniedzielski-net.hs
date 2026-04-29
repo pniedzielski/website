@@ -25,7 +25,6 @@ import Codec.Compression.Brotli qualified as Brotli
 import Data.List (intercalate)
 import Data.List.NonEmpty (nonEmpty)
 import Data.List.NonEmpty qualified as NE
-import Data.Maybe
 import System.FilePath
 import Data.ByteString.Lazy qualified as LBS
 import Network.Wai.Application.Static qualified as W
@@ -166,6 +165,6 @@ dropUrlExtension key = mapContext dropExtension $ urlField key
 titleWithSiteName :: Context a
 titleWithSiteName = field "title" $ \item -> do
     metadata <- getMetadata (itemIdentifier item)
-    return $ fromMaybe "pniedzielski" $
-      do title <- lookupString "title" metadata
-         return $ title ++ " • pniedzielski"
+    return $ case lookupString "title" metadata of
+      Just title -> title ++ " • pniedzielski"
+      Nothing    -> "pniedzielski"
