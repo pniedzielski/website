@@ -32,20 +32,22 @@ import WaiAppStatic.Types (LookupResult(..), fromPiece, toPiece)
 
 configuration :: Configuration
 configuration = defaultConfiguration
-  { previewSettings = \root ->
-      let base    = W.defaultFileServerSettings root
-          tryHtml = maybe (return LRNotFound) $ \pathPieces ->
-            let prefix    = NE.init pathPieces
-                lastPiece = NE.last pathPieces
-            in case toPiece (fromPiece lastPiece <> ".html") of
-              Just htmlPiece -> W.ssLookupFile base (prefix ++ [htmlPiece])
-              Nothing        -> return LRNotFound
-      in base { W.ssLookupFile = \pieces ->
-           W.ssLookupFile base pieces >>= \case
-             LRNotFound -> tryHtml (nonEmpty pieces)
-             other      -> return other
-         }
-  }
+  { previewSettings = previewSettingsWithHtmlFallback }
+
+previewSettingsWithHtmlFallback :: FilePath -> W.StaticSettings
+previewSettingsWithHtmlFallback root =
+  let base    = W.defaultFileServerSettings root
+      tryHtml = maybe (return LRNotFound) $ \pathPieces ->
+        let prefix    = NE.init pathPieces
+            lastPiece = NE.last pathPieces
+        in case toPiece (fromPiece lastPiece <> ".html") of
+          Just htmlPiece -> W.ssLookupFile base (prefix ++ [htmlPiece])
+          Nothing        -> return LRNotFound
+  in base { W.ssLookupFile = \pieces ->
+       W.ssLookupFile base pieces >>= \case
+         LRNotFound -> tryHtml (nonEmpty pieces)
+         other      -> return other
+     }
 
 main :: IO ()
 main = hakyllWith configuration $ do
