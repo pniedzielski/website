@@ -20,7 +20,6 @@
 -------------------------------------------------------------------------------
 
 
-{-# LANGUAGE LambdaCase        #-}
 {-# LANGUAGE OverloadedStrings #-}
 
 import           Hakyll
