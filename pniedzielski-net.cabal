@@ -11,4 +11,4 @@ executable pniedzielski-net
                   , filepath
                   , bytestring
   ghc-options:      -threaded
-  default-language: Haskell2010
+  default-language: GHC2024
