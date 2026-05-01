@@ -20,16 +20,15 @@
 -------------------------------------------------------------------------------
 
 
-import           Hakyll
-import           Data.List (intercalate)
-import           Data.List.NonEmpty (nonEmpty)
-import qualified Data.List.NonEmpty as NE
-import           Data.Maybe
-import           System.FilePath
-import qualified Data.ByteString.Lazy as LBS
-import qualified Network.Wai.Application.Static as W
-import           WaiAppStatic.Types (LookupResult(..), fromPiece,
-                                     unsafeToPiece)
+import Hakyll
+import Data.List (intercalate)
+import Data.List.NonEmpty (nonEmpty)
+import Data.List.NonEmpty qualified as NE
+import Data.Maybe
+import System.FilePath
+import Data.ByteString.Lazy qualified as LBS
+import Network.Wai.Application.Static qualified as W
+import WaiAppStatic.Types (LookupResult(..), fromPiece, unsafeToPiece)
 
 configuration :: Configuration
 configuration = defaultConfiguration
