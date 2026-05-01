@@ -23,6 +23,7 @@ executable pniedzielski-net
                     -Wmissing-home-modules
                     -Wnoncanonical-monad-instances
                     -Wpartial-fields
+                    -Wprepositive-qualified-module
                     -Wredundant-constraints
                     -Wtabs
   default-language: GHC2024
